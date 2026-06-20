@@ -15,10 +15,13 @@ if have cliclick; then ok "cliclick"; else
   else miss "cliclick — install Homebrew (https://brew.sh) then: brew install cliclick"; fi
 fi
 
-# peekaboo — click / move / swipe / scroll. (Clicks can also be done with cliclick c:x,y if you prefer.)
-if have peekaboo; then ok "peekaboo"; else
-  miss "peekaboo — see https://github.com/steipete/peekaboo (brew install peekaboo, or the app)."
-  echo "       fallback: clicks work with cliclick (c:x,y); swipe/scroll need peekaboo."
+# peekaboo — click / move / swipe + screenshots. Auto-installs from steipete's Homebrew tap.
+if have peekaboo; then ok "peekaboo ($(peekaboo --version 2>/dev/null | head -1))"; else
+  if have brew; then
+    echo "  installing peekaboo (brew install steipete/tap/peekaboo)…"
+    brew install steipete/tap/peekaboo && ok "peekaboo" || miss "peekaboo (tap install failed — try: brew install steipete/tap/peekaboo)"
+  else miss "peekaboo — install Homebrew (https://brew.sh) then: brew install steipete/tap/peekaboo"; fi
+  echo "       (clicks can also fall back to cliclick c:x,y; swipe gestures use peekaboo)"
 fi
 
 # python3 + Pillow — for grab-grid.sh (coordinate-grid screenshots).

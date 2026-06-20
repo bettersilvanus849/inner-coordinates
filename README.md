@@ -71,12 +71,12 @@ normalize window (pin top-left, read back actual geometry = fingerprint)
 
 ## Quick start
 
-Requirements: macOS, an agent that can run shell + read screenshots (e.g. Claude Code), [`peekaboo`](https://github.com/steipete/peekaboo), [`cliclick`](https://github.com/BlueM/cliclick). For the iPhone Mirroring channel: iPhone Mirroring set up **and Handoff / Universal Clipboard turned ON**.
+Requirements: macOS, [Homebrew](https://brew.sh), and an agent that can run shell + read screenshots (e.g. Claude Code). `setup.sh` installs the rest — [`peekaboo`](https://github.com/steipete/peekaboo) (clicks/swipes), [`cliclick`](https://github.com/BlueM/cliclick) (real modified-key paste), and Pillow (grid tool) — all via Homebrew/pip, nothing to download by hand. For the iPhone Mirroring channel: iPhone Mirroring set up **and Handoff / Universal Clipboard turned ON**.
 
 ```bash
 git clone https://github.com/XiaoChu-1208/inner-coordinates.git
 cd inner-coordinates
-./setup.sh                      # installs/checks cliclick, peekaboo, Pillow
+./setup.sh                      # auto-installs cliclick + peekaboo (brew) + Pillow (pip)
 
 # Use as a Claude Code skill:
 ln -s "$PWD" ~/.claude/skills/inner-coordinates
