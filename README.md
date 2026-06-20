@@ -2,6 +2,8 @@
 
 > Reverse-engineer a clickable map of any macOS or iPhone app **from the outside**, store it, and replay whole workflows **from memory** — learn once, then execute without screenshotting every step.
 
+![Inner Coordinates — pick a channel, normalize, learn once (eyes open), then run the inner chain from memory and verify only at choke points; self-heal when the map goes stale](docs/overview.png)
+
 **Inner Coordinates** is a [Claude Code](https://claude.com/claude-code) skill (plus a small set of standalone shell tools) for reliable **GUI automation of macOS native apps and iOS apps** (through **iPhone Mirroring**) — *including* apps that expose **no accessibility tree** and actively **resist screenshots and automation** (WeChat / 微信, Meituan / 美团, and friends).
 
 Think of it as **Figma in reverse**: instead of designing a UI, you recover a *coordinate map* of an existing one, save it as a reusable **profile**, and let an AI agent click through it. Coordinates are disposable and drift over time — the durable asset is the **learn → verify → self-heal loop** and the growing **library of maps** that anyone can share and reuse.
