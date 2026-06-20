@@ -48,6 +48,10 @@ Taken all the way, a sufficiently complete library means the agent can stand in 
 
 *(Same power, same responsibility — run it on your own accounts and devices, for your own tasks.)*
 
+![An app's flow map reconstructed from memory in the dark — phosphor-cyan screen wireframes and arrows with inner coordinates pinned in space, a terminal stitching the node graph at 82.6% confidence](docs/inner-chain.png)
+
+> *The inner chain, the way the agent holds it: screens it has already learned glow crisp and confident; everything else stays a faint dotted outline until it learns it. Every node carries its coordinates. This is what "成竹在胸" looks like from the inside.*
+
 ## Two channels (the skill picks, you confirm)
 
 - **(A) Native macOS windows** — `peekaboo` + AppleScript `System Events`. Fast, no mirror lag. For apps with a working, screenshotable, automatable Mac version (e.g. 网易云音乐 / NetEase Music).
