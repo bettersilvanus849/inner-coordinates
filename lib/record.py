@@ -40,8 +40,10 @@ def on_click(x, y, button, pressed):
     ev = {"t": now(), "type": "click", "rel": [rx, ry],
           "screen": [round(x), round(y)], "clip": pbpaste()[:120], "shot": shot(i)}
     events.append(ev); save()                         # 点前态即时存盘
-    time.sleep(0.35); ev["shot_after"] = shot(f"{i}a")  # 点后态:看清这一下选中/改变了啥(消歧义)
-    save()
+    # 点后态在【后台线程】截(看清这一下选中了啥),绝不阻塞鼠标监听——否则会丢点击
+    def _after(ev=ev, i=i):
+        time.sleep(0.35); ev["shot_after"] = shot(f"{i}a"); save()
+    threading.Thread(target=_after, daemon=True).start()
     print(f"  #{i} click rel({rx},{ry})  clip='{pbpaste()[:20]}'", flush=True)
 
 buf = []
