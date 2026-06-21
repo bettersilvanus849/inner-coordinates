@@ -146,7 +146,12 @@ This library gets better the more maps it holds. **PRs of new app profiles are w
 
 ## Privacy & safety
 
-- Profiles store **coordinates and flows only** — never secrets. Payment passwords are entered digit-by-digit at the keypad and **never stored, never guessed**; the agent asks you for them at that step.
+- Profiles, scripts, and the repo store **coordinates and flows only** — never secrets. A payment password is **never** written to any file.
+- **Hands-free payment is opt-in.** By default the agent stops at the keypad and asks you for the password (entered digit-by-digit, never stored). If you want it fully unattended, *arm* it once by putting your password in the local macOS Keychain:
+  ```bash
+  security add-generic-password -a meituan -s ic-alipay-pay -w   # prompts; stored encrypted, local only
+  ```
+  Then `lib/pay-keypad.sh` reads it from the Keychain and types it on the keypad — the password lives only in your encrypted Keychain, never in the repo. Even when armed, the agent **asks before auto-paying** ("pay with the keychain password?") and screenshots the order/amount to self-verify first — unattended, but not blind. Entering 6 digits auto-submits, so it only runs at a real keypad on a verified order.
 - For money / irreversible actions the agent **verifies with a screenshot** (looks, doesn't nag) and proceeds when you've clearly asked for the result.
 - Everything runs locally on your Mac; nothing is sent anywhere by this project.
 - **Forking or sending a PR? De-identify first.** The moment a profile leaves your machine, it must be clean — scrub passwords, phone numbers, addresses, names, account IDs, contact handles. Use placeholders (`<address, redacted>`). See [CONTRIBUTING.md](CONTRIBUTING.md).

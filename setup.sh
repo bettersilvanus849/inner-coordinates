@@ -44,5 +44,11 @@ echo "  1) set up iPhone Mirroring (macOS Sequoia+)"
 echo "  2) turn ON Handoff / Universal Clipboard  (General → AirDrop & Handoff)"
 echo "     — Chinese text is pasted via the clipboard, which Handoff syncs to iOS."
 echo
+echo "── optional: hands-free payment (opt-in) ──"
+echo "  arm once to let the agent auto-enter your pay password (Keychain, local only):"
+echo "    security add-generic-password -a meituan -s ic-alipay-pay -w"
+echo "  then lib/pay-keypad.sh types it on the keypad. The agent still ASKS before"
+echo "  auto-paying and self-verifies the order. Skip this to keep paying by hand."
+echo
 echo "Done. Drop this folder into ~/.claude/skills/ to use as a Claude Code skill:"
 echo "  ln -s \"\$PWD\" ~/.claude/skills/inner-coordinates"
