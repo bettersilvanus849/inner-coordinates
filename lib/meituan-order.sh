@@ -45,7 +45,8 @@ CK "$SZ"; sleep 0.4
 [ -n "$TP" ] && { CK "$TP"; sleep 0.4; }
 # 6) 加入购物车
 CK "285,625"; sleep 1.5
-# 7) 去结算
+# 7) 加购后规格弹窗还挡着「去结算」→ 点结算位2次(留间隔):第1次=点在弹窗外把它关掉,第2次=真进结算(用户实测)
+CK "279,741"; sleep 1.3
 CK "279,741"; sleep 2.6
 peekaboo move --coords "330,90" >/dev/null 2>&1; sleep 0.3
 "$DIR/grab.sh" "$PROC" /tmp/mt_order.png
