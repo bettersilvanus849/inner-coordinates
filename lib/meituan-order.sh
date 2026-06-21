@@ -19,7 +19,8 @@ PROC="iPhone Mirroring"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 A(){ osascript -e "tell application \"System Events\" to tell process \"$PROC\" to set frontmost to true" >/dev/null 2>&1; }
 CK(){ A; peekaboo click --coords "$1" >/dev/null 2>&1; }
-PASTE(){ printf '%s' "$1" | pbcopy; sleep 2.6; A; cliclick kd:cmd t:v ku:cmd; }   # pbcopy 处理中文,避开 osascript 引号坑
+CLEAR(){ A; cliclick kd:cmd t:a ku:cmd >/dev/null 2>&1; sleep 0.2; cliclick kp:delete >/dev/null 2>&1; sleep 0.2; }  # 输入前清空:Cmd+A 全选 + Delete
+PASTE(){ CLEAR; printf '%s' "$1" | pbcopy; sleep 2.6; A; cliclick kd:cmd t:v ku:cmd; }   # 先清空,再 pbcopy 中文 + 真实 Cmd+V
 case "$SIZE" in 大杯) SZ="200,300";; *) SZ="80,300";; esac
 case "$TEMP" in 热) TP="63,356";; 冰) TP="95,356";; 少冰) TP="145,356";; 去冰) TP="195,356";; *) TP="";; esac
 

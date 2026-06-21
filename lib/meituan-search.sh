@@ -23,9 +23,10 @@ sleep 0.5
 act; sleep 0.3
 peekaboo click --coords "140,141" >/dev/null; sleep 1.8
 
-# 2) 聚焦输入框
+# 2) 聚焦输入框 + 清空(Cmd+A 全选 + Delete,防残留旧词如"皮爷咖啡皮爷咖啡")
 act; sleep 0.2
 peekaboo click --coords "130,120" >/dev/null; sleep 0.6
+act; cliclick kd:cmd t:a ku:cmd >/dev/null 2>&1; sleep 0.2; cliclick kp:delete >/dev/null 2>&1; sleep 0.2
 
 # 3) 剪贴板 + 接力同步 + 真实 Cmd+V(中文必须 cliclick,peekaboo/osascript 的 Cmd 会被镜像吃掉)
 printf "%s" "$Q" | pbcopy
