@@ -110,6 +110,13 @@ Screenshotting the iPhone-Mirroring window — by **any** macOS method (a screen
 ### Scripts are the executable artifact
 A coordinate list still leaves the model to re-assemble and tap-look-tap. The durable output of learning a stable stretch is a **single script** (`lib/<app>-<flow>.sh`) that runs the whole chain in one command — there is no "between" to screenshot. Fix the script when a coordinate drifts; don't re-learn. The password is the one thing **never** in a script or the repo: it's read from the local Keychain at the keypad (opt-in), and the agent asks before auto-paying.
 
+### Stand-by chatting: poll the list, not one chat
+Replying on someone's behalf isn't one-shot — a conversation continues. The pattern that holds a thread:
+- **Scan the list, don't camp a chat.** Each round return to the conversation **list**, screenshot once, and reply to whichever rows carry an unread badge — then go back to the list. Re-screenshot **right before** every tap: incoming notifications (e.g. official-account pushes) reorder rows, so a coordinate from the previous frame can land on the wrong conversation.
+- **Whitelist.** Only reply to a user-configured set of contacts/groups; everyone else's unread is read-only. The actual names live in local runtime state, **never in the repo** (privacy).
+- **Back-off cadence.** Poll every 1 min; after 3 idle rounds at a tier, step down (1m → 5m → 10m, capped). Any new message snaps back to 1 min so a live chat stays snappy.
+- **Never auto-stop.** Only the user explicitly ending it stops the loop — "looks wrapped up / a few quiet rounds" is not a reason to bail, and don't nag asking whether to stop. Each screenshot is use-and-discard (read, then `rm`); a tiny local state file (tier / idle count / timer id / last-list snapshot) survives across rounds. Driven by a self-rescheduling timer.
+
 ## Quick start
 
 Requirements: macOS, [Homebrew](https://brew.sh), and an agent that can run shell + read screenshots (e.g. Claude Code). `setup.sh` installs the rest — [`peekaboo`](https://github.com/steipete/peekaboo) (clicks/swipes), [`cliclick`](https://github.com/BlueM/cliclick) (real modified-key paste), and Pillow (grid tool) — all via Homebrew/pip, nothing to download by hand. For the iPhone Mirroring channel: iPhone Mirroring set up **and Handoff / Universal Clipboard turned ON**.
@@ -137,7 +144,7 @@ Grant your terminal/agent **Screen Recording** + **Accessibility** in System Set
 | App | Channel | Operations (tested) |
 |-----|---------|---------------------|
 | 网易云音乐 NetEase Music | A · native | search & play, play/pause / next / prev / volume (via menu), liked songs, recent, sidebar nav |
-| 微信 WeChat | B · iPhone Mirroring | search a contact and send a Chinese message, stickers (full auto: clipboard + real Cmd+V via cliclick, send via Return) |
+| 微信 WeChat | B · iPhone Mirroring | search a contact and send a Chinese message, stickers (full auto: clipboard + real Cmd+V via cliclick, send via Return); **stand-by chatting** — poll the conversation list and auto-reply to a whitelist of contacts/groups with back-off cadence |
 | 美团外卖 Meituan | B · iPhone Mirroring | **full order → payment**: search store, enter store, pick spec (less ice / hot / less espresso), add to cart, top up to min-order, delete cart items, checkout, apply coupon, choose Alipay, enter pay password digit-by-digit. Real order placed end-to-end. |
 
 See [`profiles/`](profiles/) for each map and `profiles/_index.json` for the catalogue. Want more? **[Contribute yours »](CONTRIBUTING.md)**
@@ -189,6 +196,7 @@ This library gets better the more maps it holds. **PRs of new app profiles are w
   Then `lib/pay-keypad.sh` reads it from the Keychain and types it on the keypad — the password lives only in your encrypted Keychain, never in the repo. Even when armed, the agent **asks before auto-paying** ("pay with the keychain password?") and screenshots the order/amount to self-verify first — unattended, but not blind. Entering 6 digits auto-submits, so it only runs at a real keypad on a verified order.
 - For money / irreversible actions the agent **verifies with a screenshot** (looks, doesn't nag) and proceeds when you've clearly asked for the result.
 - Everything runs locally on your Mac; nothing is sent anywhere by this project.
+- **Chat whitelists stay local.** The contacts/groups the agent is allowed to reply to live only in local runtime state (and the operator's notes) — never committed. Profiles describe the *mechanism* (scan list → match whitelist → reply), not your social graph.
 - **Forking or sending a PR? De-identify first.** The moment a profile leaves your machine, it must be clean — scrub passwords, phone numbers, addresses, names, account IDs, contact handles. Use placeholders (`<address, redacted>`). See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
